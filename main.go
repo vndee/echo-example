@@ -11,9 +11,9 @@ func main() {
 	server := echo.New()
 	server.Use(middleware.Logger())
 
-	isLogedIn := middleware.JWT([]byte("mysecretkey"))
+	isLoggedIn := middleware.JWT([]byte("mysecretkey"))
 
-	server.GET("/", handler.Hello, isLogedIn)
+	server.GET("/", handler.Hello, isLoggedIn)
 	server.POST("/login", handler.Login, middleware.BasicAuth(middlewares.BasicAuth))
 	server.Logger.Fatal(server.Start(":8888"))
 }

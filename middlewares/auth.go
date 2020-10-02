@@ -1,8 +1,12 @@
 package middlewares
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/labstack/echo/v4"
+	"log"
+)
 
 func BasicAuth(username string, password string, c echo.Context) (bool, error) {
+	log.Printf("username: %s - password: %s", username, password)
 	if username == "admin" && password == "password" {
 		c.Set("username", username)
 		c.Set("admin", true)
@@ -17,4 +21,3 @@ func BasicAuth(username string, password string, c echo.Context) (bool, error) {
 
 	return false, nil
 }
-

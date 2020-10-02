@@ -12,8 +12,11 @@ func main() {
 	server.Use(middleware.Logger())
 
 	isLoggedIn := middleware.JWT([]byte("mysecretkey"))
+	isAdmin := middlewares.IsAdminMiddleware
 
 	server.GET("/", handler.Hello, isLoggedIn)
 	server.POST("/login", handler.Login, middleware.BasicAuth(middlewares.BasicAuth))
+	server.GET("/admin", handler.Hello, isLoggedIn, isAdmin)
+
 	server.Logger.Fatal(server.Start(":8888"))
 }

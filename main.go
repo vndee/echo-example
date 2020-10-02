@@ -18,5 +18,13 @@ func main() {
 	server.POST("/login", handler.Login, middleware.BasicAuth(middlewares.BasicAuth))
 	server.GET("/admin", handler.Hello, isLoggedIn, isAdmin)
 
+	groupv2 := server.Group("/v2")
+	groupv2.GET("/hello", handler.Hello2)
+
+	groupUser := server.Group("/api/user")
+	groupUser.GET("/get", handler.GetUser)
+	groupUser.GET("/update", handler.UpdateUser)
+	groupUser.GET("delete", handler.DeleteUser)
+
 	server.Logger.Fatal(server.Start(":8888"))
 }
